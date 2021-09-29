@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Roulette";
+
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>Use this area to provide roulette game.</p>
+
+
+<strong class="text-danger">@ViewBag.Errore</strong>
+
+@model Nome.FormDataModels.EntryFormData
+@using (Html.BeginForm("Roulette", "Home"))
+{
+
+    @*@Html.TextBox("Quantita", "")*@
+    @*@Html.TextBoxFor(model => model.Quantita)*@
+
+
+    @Html.LabelFor(model => model.PlayerName)
+    @Html.EditorFor(model => model.PlayerName)
+
+    <br />
+
+    @Html.LabelFor(model => model.Quantity)
+    @Html.EditorFor(model => model.Quantity)
+
+    <br />
+
+    <button type="submit">Salva</button>
+
+}
+
+
