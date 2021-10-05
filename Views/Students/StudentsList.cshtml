@@ -41,18 +41,18 @@
 
         @foreach (var student in Model.StudentsList)
         {
-            <tr>
-                <td>@student.Id</td>
-                <td>@student.Firstname</td>
-                <td>@student.Lastname</td>
-                @if (Session["User"] != null)
-                {
-                    <td>
-                        <button>@Html.ActionLink("Edit", "EditStudent", "Students", new { studentId = student.Id }) </button>
-                        <button>@Html.ActionLink("Delete", "DeleteStudent", "Students", new { studentId = student.Id }) </button>
-                    </td>
-                }
-            </tr>
+        <tr>
+            <td>@student.Id</td>
+            <td>@student.Firstname</td>
+            <td>@student.Lastname</td>
+            @if (Session["User"] != null)
+            {
+                <td>
+                    <button>@Html.ActionLink("Edit", "EditStudent", new { Id = student.Id }) </button>
+                    <button>@Html.ActionLink("Delete", "DeleteStudent", new { Id = student.Id, Firstname = student.Firstname, Lastname = student.Lastname }) </button>
+                </td>
+            }
+        </tr>
         }
     </tbody>
 

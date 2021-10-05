@@ -35,10 +35,11 @@ namespace Nome.Controllers
             return RedirectToAction("StudentsList");
         }
 
-        [HttpPost]
-        public ActionResult DeleteStudent(int id)
+        public ActionResult DeleteStudent(Student model)
         {
-
+            if (!ModelState.IsValid)
+                return View();
+            service.DeleteAStudent(model);
             return RedirectToAction("StudentsList");
         }
     }

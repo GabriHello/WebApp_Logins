@@ -30,6 +30,8 @@ namespace Nome.Controllers
             }
             return students;
         }
+
+
         internal int InsertAStudent(StudentToInsert studentInserted)
         {
             var counter = 0;
@@ -47,5 +49,24 @@ namespace Nome.Controllers
             }
             return counter;
         }
+
+        internal void DeleteAStudent(Student model)
+        {
+            var queryString = "" +
+               "DELETE FROM students where " +
+               "studentId=@id ";
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(queryString, conn);
+                cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
+                cmd.Parameters["@id"].Value = model.Id;
+                cmd.ExecuteNonQuery();
+            }
+        }
+        ///TODO:
+        ///1) create a PARTIAL that shows a table row under the student selected after the user clicks on the "edit" button
+        ///2) create an alert to prevent accidental deletes
+        ///3) buh
     }
 }
