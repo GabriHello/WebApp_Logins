@@ -10,7 +10,6 @@ using static Nome.Models.StudentModel;
 
 namespace Nome.Controllers
 {
-
     public class StudentsController : Controller
     {
         private readonly StudentsService service;
@@ -32,7 +31,6 @@ namespace Nome.Controllers
             int counter = service.InsertAStudent(model.StudentToInsert);
             if (!ModelState.IsValid || counter == 0)
                 return View();
-
 
             return RedirectToAction("StudentsList");
         }

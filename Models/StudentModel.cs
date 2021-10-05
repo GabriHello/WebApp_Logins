@@ -11,7 +11,6 @@ namespace Nome.Models
     {
 
         public List<Student> StudentsList { get; set; }
-
         public StudentToInsert StudentToInsert { get; set; }
 
         public StudentModel()
