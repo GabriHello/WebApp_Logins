@@ -48,3 +48,17 @@
     @Html.ActionLink("Edit", "EditProfile") |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+
+
+@section scripts{  @*Section renderizzata solo in questa pagina*@
+    <script>
+        $("dl").attr("style", "border-radius: 30px; max-width: 700px; overflow:hidden;")
+        $("dl dd:even").attr("style", "background-color:#c7c7c759");
+        $("dl dd:odd").attr("style", "background-color:#c7c7c719;");
+        $(".dl-horizontal dd").css("padding-left", "180px").css("margin-left", "0");
+        $("dd").css("padding", "5px 10px 0 180px");
+        $("dt").css("padding", "5px")
+    </script>
+}

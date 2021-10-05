@@ -23,6 +23,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Roulette", "Roulette", "Home")</li>
+                    <li>@Html.ActionLink("Students", "StudentsList", "Students")</li>
                     @if (Session["user"] == null)
                     {
                         <li>@Html.ActionLink("Sign Up", "SignUp", "Authentication")</li>
@@ -53,7 +54,9 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval") @* renderizzo un altro bundle. Vedi bundleConfig *@
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @RenderSection("scripts", required: false) @*renderizza una section dedicata agli script, non è richiesta per tutte le views, ma verrà renderizzata solo su quelle che la implementano.
+        Per implementarla, nella view: @section scripts{ <script> . . . </script>}*@
 </body>
 </html>

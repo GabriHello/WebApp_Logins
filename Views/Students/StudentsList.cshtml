@@ -1,0 +1,76 @@
+﻿@model Nome.Models.StudentModel
+@{
+    ViewBag.Title = "StudentsList";
+}
+
+<h2>StudentsList</h2>
+
+@if (Session["User"] != null)
+{
+
+
+    using (Html.BeginForm("InsertStudent", "Students",FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>StudentToInsert</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StudentToInsert.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.StudentToInsert.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StudentToInsert.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StudentToInsert.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.StudentToInsert.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StudentToInsert.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+}
+
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @foreach (var student in Model.StudentsList)
+        {
+            <tr>
+                <td>@student.Id</td>
+                <td>@student.Firstname</td>
+                <td>@student.Lastname</td>
+                @if (Session["User"] != null)
+                {
+                    <td><button>@Html.ActionLink("Edit", "EditStudent", "Students", new { studentId = student.Id }) </button>  </td>
+                }
+            </tr>
+        }
+    </tbody>
+
+</table>

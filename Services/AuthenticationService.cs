@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Web;
 
@@ -43,7 +44,7 @@ namespace Nome.Services
 
             }
 
-            return countEmailInDb == 0;
+            return countEmailInDb == 0; //se è vero, questa mail inserita è valida per registrare nuovo uer
         }
 
 
@@ -81,7 +82,7 @@ namespace Nome.Services
                     cmd2.Transaction = transaction;
                     cmd2.Parameters.Add("@id", System.Data.SqlDbType.Int);
                     cmd2.Parameters["@id"].Value = newUserId;
-                    int insertCount = cmd2.ExecuteNonQuery();
+                    int insertCount = (int)cmd2.ExecuteNonQuery();
 
                     if (insertCount == 0)
                     {
@@ -188,8 +189,8 @@ namespace Nome.Services
                         profile = new UserProfileModel();
 
                         profile.Id = reader.GetInt32(reader.GetOrdinal("id"));
-                        
-                        profile.Firstname = reader.IsDBNull(reader.GetOrdinal("firstname")) ? 
+
+                        profile.Firstname = reader.IsDBNull(reader.GetOrdinal("firstname")) ?
                             null :
                             reader.GetString(reader.GetOrdinal("firstname"));
 
@@ -202,13 +203,35 @@ namespace Nome.Services
                             reader.GetDateTime(reader.GetOrdinal("birthdate"));
 
                         profile.Citizenship = reader.IsDBNull(reader.GetOrdinal("citizenship")) ?
-                            null as int?:
+                            null as int? :
                            reader.GetInt32(reader.GetOrdinal("citizenship"));
                     }
 
                 }
             }
             return profile;
+        }
+
+        public void UpdateProfileInfo(UserProfileFormDataModel formData, int id)
+        {
+            var queryString = "update Profiles " +
+                "SET " +
+                "firstname = @fn, " +
+                "lastname = @ln, " +
+                "birthdate = @bd, "+
+                "citizenship = @zs " +
+                "where id=@id";
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(queryString, conn);
+                cmd.Parameters.AddWithValue("@fn", formData.Firstname ?? SqlString.Null);
+                cmd.Parameters.AddWithValue("@ln", formData.Lastname ?? SqlString.Null);
+                cmd.Parameters.AddWithValue("@bd", formData.BirthDate ?? SqlDateTime.Null );
+                cmd.Parameters.AddWithValue("@zs", formData.Citizenship ?? SqlInt32.Null);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteScalar();
+            };
         }
     }
 }

@@ -8,6 +8,7 @@ using Nome.FormDataModels;
 using Nome.Services;
 using System.Configuration;
 using Nome.Models;
+using System.Web.UI;
 
 namespace Nome.Controllers
 {
@@ -40,7 +41,7 @@ namespace Nome.Controllers
                 return View();
             }
 
-            if (!service.CheckUserEmail(formData.Email))
+            if (!service.CheckUserEmail(formData.Email)) //significa che il conteggio delle mail è diverso da zero,quindi gia presente
             {
                 ModelState.AddModelError("Email", "Email already exists in the system.");
                 return View();
@@ -102,7 +103,13 @@ namespace Nome.Controllers
         public ActionResult Profile()
         {
             var user = Session["user"] as UserModel;
+            if (user == null)
+            {
+               
+                return RedirectToAction("Login");
+            }
             var profile = service.GetProfileById(user.Id);
+           
             return View(profile);
         }
 
@@ -118,6 +125,14 @@ namespace Nome.Controllers
                 Citizenship = profile.Citizenship
             };
             return View(profileForm);
+        }
+
+        [HttpPost]
+        public ActionResult EditProfile(UserProfileFormDataModel formData)
+        {
+            var user = Session["user"] as UserModel;
+            service.UpdateProfileInfo(formData, user.Id);
+            return RedirectToAction("Profile");
         }
 
     }
