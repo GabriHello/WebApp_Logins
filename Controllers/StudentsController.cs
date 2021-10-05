@@ -35,5 +35,11 @@ namespace Nome.Controllers
             return RedirectToAction("StudentsList");
         }
 
+        [HttpPost]
+        public ActionResult DeleteStudent(int id)
+        {
+
+            return RedirectToAction("StudentsList");
+        }
     }
 }
