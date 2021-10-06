@@ -144,10 +144,12 @@
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\StudentsUniController.cs" />
+    <Compile Include="Controllers\StudentUni.cs" />
     <Compile Include="EntityFrameworkModel\StudentsUni.cs" />
     <Compile Include="EntityFrameworkModel\Subject.cs" />
     <Compile Include="EntityFrameworkModel\Teacher.cs" />
     <Compile Include="EntityFrameworkModel\UniversityContext.cs" />
+    <Compile Include="FormDataModels\StudentUniFormDataModel.cs" />
     <Compile Include="Services\StudentsService.cs" />
     <Compile Include="FormDataModels\EntryFormDataModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />

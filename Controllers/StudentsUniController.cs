@@ -15,9 +15,17 @@ namespace Nome.Controllers
         {
             List<StudentUniFormDataModel> students = null;
 
-            using (var DbCtx = new StudentUni())
+            using (var DbCtx = new UniversityContext())
             {
-
+                DbCtx.StudentsUni.Select(
+                    x => new StudentUniFormDataModel
+                    {
+                        Id = x.Id,
+                        Firstname = x.Firstname,
+                        Lastname = x.Lastname,
+                        IdNumber = x.IdNumber
+                    }
+                    ).ToList();
             };
 
 
